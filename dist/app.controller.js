@@ -16,32 +16,23 @@ let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
-    getHello() {
-        return this.appService.getHello();
-    }
-    getHello2() {
-        return this.appService.getHello2();
-    }
     getHome() {
         return this.appService.getHome();
     }
     getAboutUs() {
         return this.appService.getAboutUs();
     }
+    createForm1() {
+    }
+    createForm2() {
+    }
+    createForm3() {
+    }
+    createForm4() {
+    }
+    createForm5() {
+    }
 };
-__decorate([
-    (0, common_1.Get)('hello'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], AppController.prototype, "getHello", null);
-__decorate([
-    (0, common_1.Get)('hello2'),
-    (0, common_1.Render)('index.html'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Object)
-], AppController.prototype, "getHello2", null);
 __decorate([
     (0, common_1.Get)(),
     (0, common_1.Render)('home.html'),
@@ -56,6 +47,41 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Object)
 ], AppController.prototype, "getAboutUs", null);
+__decorate([
+    (0, common_1.Get)('users/create'),
+    (0, common_1.Render)('users/create-user.html'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "createForm1", null);
+__decorate([
+    (0, common_1.Get)('students/create'),
+    (0, common_1.Render)('users/create-student.html'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "createForm2", null);
+__decorate([
+    (0, common_1.Get)('departments/create'),
+    (0, common_1.Render)('users/create-department.html'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "createForm3", null);
+__decorate([
+    (0, common_1.Get)('roles/create'),
+    (0, common_1.Render)('users/create-role.html'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "createForm4", null);
+__decorate([
+    (0, common_1.Get)('educational-history/create'),
+    (0, common_1.Render)('users/create-educationalHistory.html'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "createForm5", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])

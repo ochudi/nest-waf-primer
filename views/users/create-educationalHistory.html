@@ -1,0 +1,219 @@
+{% extends "layout.html" %} {% block body %}
+
+<div class="grid-container">
+  <div class="navigation-bar grid-item-row-1">
+    <div class="navigation-bar-left">
+      <div>
+        <a href="/">Home</a>
+      </div>
+      <div>
+        <a href="/about-us">About Us</a>
+      </div>
+      <div>
+        <a href="/educational-history/create" class="active"
+          >Add education history</a
+        >
+      </div>
+    </div>
+    <div class="navigation-bar-right">
+      <div>
+        <input type="search" />
+        <button> Search </button>
+      </div>
+    </div>
+  </div>
+  <div class="grid-item-row-2">
+    <form
+      class="box"
+      id="createUserForm"
+      action="/educational-history"
+      method="POST"
+    >
+      <fieldset id="createUserFormFieldSet" class="container">
+        <div class="field">
+          <label class="label">School:</label>
+          <div class="control has-icons-right">
+            <input
+              class="input"
+              id="school"
+              name="school"
+              type="text"
+              placeholder="School"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Degree:</label>
+          <div class="control has-icons-right">
+            <input
+              class="input"
+              id="degree"
+              name="degree"
+              type="text"
+              placeholder="Degree"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Field of Study:</label>
+          <div class="control has-icons-right">
+            <input
+              class="input"
+              id="fieldOfStudy"
+              name="fieldOfStudy"
+              type="text"
+              placeholder="Field of Study"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Start Date:</label>
+          <div class="control has-icons-right">
+            <input
+              class="input"
+              id="startDate"
+              name="startDate"
+              type="date"
+              pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+              placeholder="yyyy-mm-dd"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">End Date:</label>
+          <div class="control has-icons-right">
+            <input
+              class="input"
+              id="endDate"
+              name="endDate"
+              type="date"
+              pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+              placeholder="yyyy-mm-dd"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Grade:</label>
+            <div class="control has-icons-right">
+              <input
+                class="input"
+                id="grade"
+                name="grade"
+                type="number"
+                placeholder="Grade"
+              />
+            </div>
+          </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <button
+              type="submit"
+              id="submitCreateUserForm"
+              class="button is-link is-small"
+            >
+              Submit
+            </button>
+          </div>
+          <div class="control">
+            <button type="reset" class="button is-light is-small">Clear</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div
+      id="notification"
+      class="notification container is-hidden animated slideInUp"
+    >
+      <button class="delete"></button>
+      <div id="notificationMessage">{{notificationMessage}}</div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+<script>
+  const createUserForm = document.getElementById('createUserForm');
+
+  createUserForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const school = document.getElementById('school').value;
+    if (school == '') {
+        school.reportValidity();
+      return false;
+    }
+
+    const degree = document.getElementById(
+      'degree',
+    ).value;
+
+    const fieldOfStudy = document.getElementById(
+      'fieldOfStudy',
+    ).value;
+
+    const startDate= document.getElementById(
+      'startDate',
+    ).value;
+
+    const endDate= document.getElementById(
+      'endDate',
+    ).value;
+
+    const grade= document.getElementById(
+      'grade',
+    ).value;
+
+    document.getElementById('submitCreateUserForm').classList.add('is-loading');
+
+    const init = {
+      method: 'Post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        school,
+        degree,
+        fieldOfStudy,
+        startDate,
+        endDate,
+        grade
+      }),
+    };
+
+    fetch('/educational-history', init)
+      .then((response) => response.json())
+      .then((data) => {
+
+        document
+          .getElementById('submitCreateUserForm')
+          .classList.remove('is-loading');
+        document.getElementById('notificationMessage').innerHTML =
+          'User creation successful';
+        document.getElementById('notification').classList.add('is-success');
+        document.getElementById('notification').classList.remove('is-hidden');
+      })
+      .catch((error) => {
+        document
+          .getElementById('submitCreateUserForm')
+          .classList.remove('is-loading');
+
+        document.getElementById('notificationMessage').innerHTML =
+          error.message;
+        document.getElementById('notification').classList.add('is-danger');
+        document.getElementById('notification').classList.remove('is-hidden');
+      });
+  });
+</script>

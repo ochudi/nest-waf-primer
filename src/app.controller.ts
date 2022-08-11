@@ -5,17 +5,6 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get('hello')
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
-  @Get('hello2')
-  @Render('index.html')
-  getHello2(): {} {
-    return this.appService.getHello2();
-  }
-
   @Get()
   @Render('home.html')
   getHome(): {} {
@@ -26,5 +15,35 @@ export class AppController {
   @Render('about-us.html')
   getAboutUs(): {} {
     return this.appService.getAboutUs();
+  }
+
+  @Get('users/create')
+  @Render('users/create-user.html')
+  createForm1() {
+
+  }
+
+  @Get('students/create')
+  @Render('users/create-student.html')
+  createForm2() {
+
+  }
+
+  @Get('departments/create')
+  @Render('users/create-department.html')
+  createForm3() {
+
+  }
+
+  @Get('roles/create')
+  @Render('users/create-role.html')
+  createForm4() {
+
+  }
+
+  @Get('educational-history/create')
+  @Render('users/create-educationalHistory.html')
+  createForm5() {
+
   }
 }
